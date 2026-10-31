@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Support</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='user_style.css') }}?v=1.0">  
+</head>
+<body>
+    <h1>Customer Support</h1>
+    <h2>Raise your issue here</h2>
+    {% if error %}
+        <div style="background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto;">
+            <strong>Error:</strong> {{ error }}
+        </div>
+    {% endif %}
+
+    {% if success %}
+        <div style="background-color: #e8f5e9; color: #2e7d32; padding: 10px; border-radius: 5px; margin-bottom: 20px; text-align: center; max-width: 1000px; margin-left: auto; margin-right: auto;">
+            <strong>{{ success }}</strong>
+        </div>
+    {% endif %}
+    
+    <div class="container">
+        
+        <section class="main-content">
+            <form method="POST">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+                <label for="full_name">Full Name:</label><br>
+                <input type="text" placeholder="enter full name" id="full_name" name="full_name" required><br>
+
+                <label for="email">Email:</label><br>
+                <input type="email" placeholder="enter a valid email address" id="email" name="email" required><br>
+
+                <label style="margin:0;min-width:110px">Category: </label>
+                <select id="category" name="category">
+                    <option value="billing">Billing</option>
+                    <option value="technical">Technical Support</option>
+                    <option value="general">General Inquiry</option>
+                    <option value="other">Other</option>
+                </select><br>
+
+                <label for="issue">Issue Description:</label><br>
+                <textarea id="issue" name="issue" rows="10"cols="25" placeholder="describe your issue here" required></textarea><br>
+
+                <div class="input-row" style="align-items:center; margin-top:8px;">
+                    <label style="margin:0;min-width:110px">Choose priority level: </label>
+                    <input type="radio" id="priority_low" name="urgency" value="low" required>
+                    <label for="priority_low">Low</label>
+                    
+                    <input type="radio" id="priority_medium" name="urgency" value="medium" required>
+                    <label for="priority_medium">Medium</label>
+                    
+                    <input type="radio" id="priority_high" name="urgency" value="high" required>
+                    <label for="priority_high">High</label>
+                </div><br>
+                
+                <div class="buttons">
+                    <button type="submit" class="submit-btn">Submit</button>
+                    <button type="reset" class="resetbtn">Reset</button>
+                </div>
+            </form>
+        </section>
+
+        <div class="sidebar">
+            <h3><strong>Need Help?</strong></h3>
+            <p style="margin-bottom:40px;">Email: support@cms.com</p>
+        <div style="font-weight:700; margin-bottom:8px">Track your issue</div>
+
+        <div class="issue-tracker">
+            <label for="track_input_id">Enter your issue ID:</label><br>
+            <input type="text" id="track_input_id" value="{{ tracking_id or submitted_ref or '' }}" placeholder="e.g. CM_12345678" style="margin-top:8px;"><br>
+            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                <button type="button" id="copytrackBtn" class="btn">Copy ID</button>
+                <button type="button" id="checkStatusBtn" class="btn" style="background-color:#0f1724; color:white;">Check status</button>
+            </div>
+            <div id="status_result" style="margin-top: 15px; font-weight:bold;"></div>                
+        </div>
+    </div>
+</div>
+<footer>&copy; 2026 Customer Support. All rights reserved.</footer>
+
+    <script src="{{ url_for('static', filename='user_script.js') }}" defer></script>
+
+
+</body>
+</html>
