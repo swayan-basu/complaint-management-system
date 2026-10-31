@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Complaints</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_style.css') }}?v=1.0">
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h2>Complaints -Admin</h2>
+            <div class="small">Customer issues complain dashboard</div>
+        </div>
+    <div>
+        <a class="btn" href="{{ url_for('logout') }}" style="background-color: #f4f6f9; color: #c62828; border: 1px solid #e5e7eb;">Logout</a>
+    </div>
+    </div>
+    <div class="list" style="margin-top: 20px;">
+        <form method="GET" action="{{ url_for('admin_page') }}">
+            <div style="flex:1; min-width: 250px;">
+                <input type="text" name="search" placeholder="search by ID(e.g, CM_12345)" value="{{ request.args.get('search', '') }}">
+            </div>
+            <select name="category">
+                <option value="">All categories</option>
+                {% for cat in valid_categories %}
+                    <option value="{{ cat }}" {% if cat == category_filter %}selected{% endif %}>{{ cat|title }}</option>
+                {% endfor %}
+            </select>
+            <select name="status">
+                <option value="">All Statuses</option>
+                {% for stat in valid_status %}
+                    <option value="{{ stat }}" {% if stat == status_filter %}selected{% endif %}>{{ stat|title }}</option>
+                {% endfor %}
+            </select>
+            <select name="priority">
+                <option value="">All priorities</option>
+                {% for level in valid_urgencies %}
+                    <option value="{{ level }}" {% if level == urgency_filter %}selected{% endif %}>{{ level|title }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit" class="btn btn-primary">Search</button>
+            <a href="{{ url_for('admin_page') }}" class="btn btn-secondary" style="text-decoration: none;">Reset</a>    
+        </form>
+    </div>
+    <div class="list">
+        <table class="table" role="table" aria label="Complaint lists">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Priority</th>
+                    <th>Customer Details</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th>Summary</th>
+                    <th>Received</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in complaints %}
+                <tr>
+                    <td><strong>{{ c.ref }}</strong></td>
+                    <td>{{ c.urgency|default('low')|title }}</td>
+                    <td>{{ c.name }}<br><span class="small">{{ c.email }}</span></td>
+                    <td><span class="catg">{{ c.category|default('General inquiry')  }}</span></td>
+                    <td><span class="tag">{{ c.status|default('pending')|title }}</span></td>
+                    <td>{{ c.message[0:50] }}...</td>
+                    <td class="small">{{ c.created_at.strftime('%Y-%m-%d') }}</td>
+                    <td><a href="{{ url_for('view_issue', ref=c.ref) }}" class="btn" style="text-decoration: none;">View</a></td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="7" style="text-align: center; padding: 20px;">No complaints found in the database.</td>
+                </tr>
+                {% endfor %}    
+
+            </tbody>
+        </table>
+    </div>
+    {% if total_pages > 1 %}
+    <div>
+        {% if page > 1 %}
+            <a href="{{ url_for('admin_page', page=page-1, search=search_query, category=category_filter, status=status_filter, urgency=urgency_filter) }}" class="btn">Previous</a>
+
+        {% endif %}
+        <span class="small">page {{ page }} of {{ total_pages }}</span>
+        {% if page < total_pages %}
+            <a href="{{ url_for('admin_page', page=page+1, search=search_query, category=category_filter, status=status_filter, urgency=urgency_filter) }}" class="btn">Next</a>
+        {% endif %}
+    </div>
+    {% endif %}
+
+    <footer style="margin-top:18px; text-align:center; color:#6b6f76">&copy; 2026 Customer Support. All rights reserved.</footer>
+</body>
+</html>                         
