@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Complaints Details View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_view_style.css') }}">   
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h2>Complaint Details</h2>
+            <div class="small">Track and update Complaint Status</div>
+        </div>
+        <div><a class="btn" href="{{url_for('admin_page') }}">Back to Dashboard</a></div>
+    </div>
+
+    <div class="list" style="margin-bottom:14 px;">
+        <p><strong>ID:</strong>#{{c.ref}}</p>
+        <p><strong>Customer name:</strong>{{c.name}} ({{c.email}})</p>
+        <p><strong>Category:</strong>{{c.category}}</p>
+        <p><strong>Urgency:</strong>{{c.urgency|title}}</p>
+        <p><strong>Current Status:</strong><span class="tag">{{c.status|default('pending')|title}}</span></p>
+        <p><strong>Received:</strong>{{c.created_at}}</p>
+        <p><strong>Message:</strong>{{c.message}}</p>
+    </div>
+
+    <div class="list">
+        <h3 style="margin-top:0">Update Status</h3>
+        <form method="post" action="{{url_for('admin_update_status', ref=c.ref)}}" style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        
+          <input type="hidden" name="track_id" value="{{track_id}}">
+          <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+          <label for="status">set status:</label>
+          <select id="status" name="status" class="btn" style="min-width: 180px;">
+            {% for s in valid_status %}
+          <option value="{{ s }}" {% if s==c.status %}selected{% endif %}>{{ s|title }}</option>
+        {% endfor %}
+          </select>
+          <button type="submit" class="btn">Update</button>
+          </form>
+
+          <form method="post" action="{{url_for('admin_update_status', ref=c.ref)}}" style="margin-top:10px;">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <input type="hidden" name="track_id" value="{{track_id}}">
+            <input type="hidden" name="status" value="closed">
+            <button type="submit" class="btn">Close Issue</button>
+          </form>
+    </div>
+    <footer>
+        &copy; 2026 Customer Support. All rights reserved.
+
+    </footer>
+</body>
+</html>
