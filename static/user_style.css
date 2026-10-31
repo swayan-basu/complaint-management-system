@@ -1,0 +1,135 @@
+@media(max-width:880px){
+    .container{
+        flex-direction:column;
+    }
+    .main-content, .sidebar{
+        width: 100%;
+    }
+    body{
+        padding: 20px 10px;
+    }
+
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #f4f6f9;
+    font-family: "Arial", sans-serif;
+    color: #0f1724;
+    margin:0;
+    padding: 40px 20px;
+}
+h1,h2, h3{
+    color:#0f1724;
+    margin-top: 0;
+    text-align: center;
+}
+h1{
+    text-align:center;
+    margin-bottom: 5px;
+}
+h2{
+    text-align:center;
+    font-weight: normal;
+    font-size: 16px;
+    margin-bottom: 40px;
+    color:#6b6f76;
+}
+
+.container{
+    display:flex;
+    gap:30px;
+    max-width: 1200px;
+    width: 100%;
+    margin:0 auto;
+    gap: 30px;
+}
+.main-content{
+    flex: 4 1 800px;
+}
+.sidebar{
+    flex: 4 4 600px;
+    min-width: 320px;
+}
+input[type="text"], input[type="email"], textarea, select{
+    width: 100%;
+    padding: 12px;
+    margin-top: 8px;
+    margin-bottom: 24px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    transition: border-color 0.2s;
+}
+input:focus, textarea:focus, select:focus{
+    border-color: #b05c24;
+    outline: none;
+}
+.submit-btn{
+    background-color: #b05c24;
+    color:white;
+    padding:12px 20px;
+    border:none;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+}
+.resetbtn{
+    background-color: #f3f4f6;
+    color:#333;
+    padding:12px 24px;
+    border: 1px solid #e5e7eb;
+    border-radius:8px;
+    font-weight:600;
+    cursor:pointer;
+    margin-left: 10px;
+}
+.submit-btn:hover{
+    background-color: #e5e7eb;
+}
+.main-content, .sidebar{
+    background-color: white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
+    border: 1px solid #8c471c;
+}
+.label.issue{
+    font-weight: bold;
+    color: #b05c24;
+}
+select#category{
+    margin-bottom: 20px;
+}
+label{
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+footer{
+    text-align: center;
+    color: #6b6f76;
+    font-size: 14px;
+    bottom: 20px;
+    padding: 50px 0 0 0;
+}
+
+.issue-tracker input{
+    margin-bottom: 10px;
+}
+.btn, .submit-btn {
+    background-color: #b05c24;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
