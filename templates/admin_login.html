@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Complaints Details View</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='admin_login_style.css') }}">   
+</head>
+<body>
+    <div class="header">
+        <div>
+            <h2>Admin Dashboard</h2>
+            <div class="small">customer complaints dashboard for admins only</div>
+        </div>
+    </div>
+
+    <div class="list" style="flex-direction: column;">
+        {% if error %}
+            <div style="background-color: #ffebee; color: #c62828; padding: 10px; border-radius: 6px; margin-bottom: 20px; font-size: 14px; text-align: center;">{{ error }}
+            </div>
+        {% endif %}
+    <form method="POST" action="{{url_for('admin_login')}}">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div>
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br>
+        </div>
+
+        <div>
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required><br>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+    </form>
+    </div>
+    <footer>
+        &copy; 2026 Customer Support. All rights reserved.
+
+    </footer>
+</body>
+</html>
