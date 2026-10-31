@@ -81,7 +81,7 @@ and Werkzeug password hashing.
  python cms.py or python3 cms.py
 3. The server will start on http://127.0.0.1:5000/
 
-USAGE GUIDE:
+### USAGE GUIDE:
 -----------
 1. User Portal (http://127.0.0.1:5000):
   - Users can fill out the form to submit a new complaint.
